@@ -1,0 +1,12 @@
+.glass_card {
+    background: rgba(255, 255, 255, 0.02); /* Semi-transparent white background */
+    backdrop-filter: blur(8px); /* Apply a blur effect */
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    transition: background 0.3s ease-in-out;
+}
+
+.glass_card:hover {
+    background: rgba(255, 255, 255, 0.5); /* Slightly increase transparency on hover */
+}

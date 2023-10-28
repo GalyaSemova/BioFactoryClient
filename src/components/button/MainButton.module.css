@@ -1,0 +1,37 @@
+/* Custom CSS for green text */
+/*.text-grass-green {*/
+/*    color: #4CAF50; !* Grass green color *!*/
+/*}*/
+
+/*!* Custom CSS for green button with hover effect *!*/
+/*.btn-green {*/
+/*    background-color: #4CAF50; !* Grass green color *!*/
+/*    color: #fff; !* White text *!*/
+/*    transition: background-color 0.3s ease; !* Smooth transition effect for background color *!*/
+/*}*/
+
+
+
+/* MainButton.module.css */
+.btnGrassGreen a{
+    background-color: #008000;
+    color: #ffffff;
+    border: none;
+}
+
+/*a {*/
+/*    background-color: #4CAF50;*/
+/*    color: #fff;*/
+/*}*/
+
+.btnGrassGreen a:hover {
+    background-color: transparent;
+    color: black;
+    border: 2px solid #008000;
+
+}
+
+
+
+
+
