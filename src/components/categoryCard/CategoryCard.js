@@ -1,16 +1,17 @@
-import MainButton from "../button/MainButton";
+import React from 'react';
+import classes from './CategoryCard.module.css'
 
-function CategoryCard() {
-    return(
-        <div className="card"  style = {{width: '18rem'}}>
-            <img className="card-img-top" src=".../100px180/" alt="Card image cap"/>
-                <div className="card-body">
-                    <h5 className="card-title">Card title</h5>
-                    <p className="card-text">Some quick example text to build on the card title and make up the bulk of
-                        the card's content.</p>
-                    {/*<a href="#" className="btn btn-primary">Go somewhere</a>*/}
-                    <MainButton href="" value="Visit"/>
-                </div>
+import MainButton from '../button/MainButton';
+
+function CategoryCard({ category }) {
+    return (
+        <div className="card" style={{ width: '30rem'}}>
+            <img className="card-img-top" src={category.imgUrl} alt={category.name} />
+            <div className="card-body">
+                <h5 className="card-title">{category.name}</h5>
+                <p className="card-text">{category.description}</p>
+                <MainButton href="/shop" value="Visit Our Store" />
+            </div>
         </div>
     );
 }

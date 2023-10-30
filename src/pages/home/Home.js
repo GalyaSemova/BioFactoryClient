@@ -10,8 +10,8 @@ function Home() {
             <NavBar/>
             <Hero/>
             <CategoryBlock/>
-            Hello ,Galye!
-            <UserList/>
+            {/* Hello ,Galye!
+            <UserList/> */}
             <HowItWorksBlock/>
             <footer>
                 <Footer/>

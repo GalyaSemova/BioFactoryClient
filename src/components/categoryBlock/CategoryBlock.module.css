@@ -3,6 +3,22 @@
     margin-top: 40px;
 }
 
-.cards_block {
+
+.categoryBlockContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .cards_block {
     margin-top: 40px;
-}
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+  
+  .cardColumn {
+    flex: 1;
+    margin: 32px; 
+  }

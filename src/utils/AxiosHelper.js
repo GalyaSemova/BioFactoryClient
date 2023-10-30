@@ -1,7 +1,6 @@
 import axios from 'axios'
-require('dotenv').config();
 
-axios.defaults.baseURL = process.env.BASE_URL
+axios.defaults.baseURL = 'http://localhost:8080/api/v1'
 
 axios.defaults.headers.post["Content-type"] = 'application.json'
 
