@@ -44,7 +44,7 @@ function NavBar(){
                             <a className="nav-link active text-white" aria-current="page" href="/#">Home</a>
                         </li>
                         <li className="nav-item">
-                            <a className="nav-link text-white" href="/login">Post Offer</a>
+                            <a className="nav-link text-white" href="/add-offer">Post Offer</a>
                         </li>
                         <li className="nav-item">
                             <a className="nav-link text-white" href="/shop">Store</a>
