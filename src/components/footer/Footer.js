@@ -11,7 +11,7 @@ function Footer() {
                         <div className="col-xs-12 col-sm-6 col-md-3">
                             <div className={classes.no_box}>
                                 <div><Logo/></div>
-                                <p className="text-white">About the company, little discription will goes here.. </p>
+                                <p className="text-white">Your place for BIO experience... </p>
                             </div>
                         </div>
 
@@ -20,25 +20,25 @@ function Footer() {
                                 <h5 className={`${classes.widget_title} text-white`} >Quick Links<span></span></h5>
                                 <ul className="thumbnail-widget">
                                     <li>
-                                        <div className="thumb-content text-white"><a className="text-white" href="#">Get Started</a></div>
+                                        <div className="thumb-content text-white"><a className="text-white" href="/register">Get Started</a></div>
                                     </li>
-                                    <li>
-                                        <div className="thumb-content"><a className="text-white" href="#">Top Leaders</a></div>
-                                    </li>
+                                    {/* <li>
+                                        <div className="thumb-content"><a className="text-white" href="#">Top Partners</a></div>
+                                    </li> */}
                                     <li>
                                         <div className="thumb-content"><a className="text-white" href="#">Success Stories</a></div>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <div className="thumb-content"><a className="text-white" href="#">Event/Tickets</a></div>
-                                    </li>
+                                    </li> */}
                                     <li>
                                         <div className="thumb-content"><a className="text-white" href="#">News</a></div>
                                     </li>
-                                    <li>
+                                    {/* <li>
                                         <div className="thumb-content"><a className="text-white" href="#">Lifestyle</a></div>
-                                    </li>
+                                    </li> */}
                                     <li>
-                                        <div className="thumb-content"><a className="text-white" href="#">About</a></div>
+                                        <div className="thumb-content"><a className="text-white" href="#">About Us</a></div>
                                     </li>
                                 </ul>
                             </div>
@@ -47,7 +47,8 @@ function Footer() {
                         <div className="col-xs-12 col-sm-6 col-md-3">
                             <div className="widget no-box">
                                 <h5 className={`${classes.widget_title} text-white`}>Get Started<span></span></h5>
-                                <p className="text-white">Get access to your full Training and Marketing Suite.</p>
+                                <p className="text-white">🌟 Be the First to Know: Don't miss a single headline, update, or exclusive story. 
+                                Subscribe to our newsletter and stay ahead of the news curve.</p>
                                 {/*<a className="btn text-white" href="https://bit.ly/3m9avif" target="_blank">Subscribe Now</a>*/}
                                 <MainButton value="Subscribe" href="https://bit.ly/3m9avif"/>
                             </div>
@@ -58,7 +59,7 @@ function Footer() {
                             <div className={classes.no_box}>
                                 <h5 className={`${classes.widget_title} text-white`}>Contact Us<span></span></h5>
 
-                                <p><a className="text-white" href="mailto:info@domain.com" title="glorythemes">info@domain.com</a></p>
+                                <p><a className="text-white" href="mailto:info@domain.com" title="glorythemes">support@biofactory.com</a></p>
                                 <ul className={classes.social_footer2}>
                                     <li className=""><a className="text-white" title="youtube" target="_blank"
                                                         href="https://bit.ly/3m9avif">
@@ -92,7 +93,7 @@ function Footer() {
                 <div className="container">
                     <div className="row">
                         <div className="col-md-12 text-center">
-                            <p className="text-white">Copyright Company Name © 2022. All rights reserved.</p>
+                            <p className="text-white">Copyright BioFactory © 2023. All rights reserved.</p>
                         </div>
                     </div>
                 </div>
