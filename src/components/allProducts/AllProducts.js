@@ -4,13 +4,13 @@ import classes from '../../pages/products/Products.module.css'
 import React, { useEffect, useState } from "react";
 
 import ProductCard from "../productCard/ProductCard";
-import Pagination from "../../components/pagination/Pagination";
+// import Pagination from "../../components/pagination/Pagination";
 
 
 function AllProducts() {
 
-    const currentPage = 1;
-    const totalPages = 10;
+    // const currentPage = 1;
+    // const totalPages = 10;
 
     const [products, setProducts] = useState([]);
 
@@ -41,7 +41,7 @@ function AllProducts() {
                             <ProductCard key={product.id} product={product} />
                         ))}
                     </div>
-                    <Pagination  current={currentPage} pages={totalPages} />
+                    {/* <Pagination  current={currentPage} pages={totalPages} /> */}
                 </div>
             </section>
         </div>

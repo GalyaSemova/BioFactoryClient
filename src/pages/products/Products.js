@@ -4,13 +4,59 @@ import AllProducts from "../../components/allProducts/AllProducts";
 import StaticNavBar from "../../components/staticNavBar/StaticNavBar";
 import Footer from "../../components/footer/Footer";
 
+import { request } from '../../utils/AxiosHelper';
+
+import { useParams } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+
 function Products() {
+
+    const { categoryName } = useParams('categoryName');
+    const [categories, setCategories] = useState([]);
+    // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
+    useEffect(() => {
+        // Fetch category data from your API endpoint
+        const apiEndpoint = '/categories';
+    
+        request('GET', apiEndpoint)
+          .then((response) => {
+            setCategories(response.data);
+          })
+          .catch((error) => {
+            console.error('Error fetching category data:', error);
+          });
+      }, []);
+
+    //   const toggleDropdown = () => {
+    //     setIsDropdownOpen(!isDropdownOpen);
+    //   };
+    
+
     return (
         <div>
             <StaticNavBar/>
             <div className={classes.wrapper}>
                 <div className="d-md-flex align-items-md-center">
-                    <div className={classes.h3}>Fruits and vegetables</div>
+                    <div className={classes.h3}>{categoryName}</div>
+                                
+                    {/* <div className={classes.dropdown}>
+                        <button onClick={toggleDropdown} className={classes.dropdownButton}>
+                            Categories
+                            <i
+                            className={`fas ${
+                                isDropdownOpen ? 'fa-caret-up' : 'fa-caret-down'
+                            }`}
+                            ></i>
+                        </button>
+                        {isDropdownOpen && (
+                            <ul className={classes.categoryList}>
+                            {categories.map((category) => (
+                                <li key={category.id}>{category.name}</li>
+                            ))}
+                            </ul>
+                        )}
+                    </div> */}
                     <div className="ml-auto d-flex align-items-center views">
                         <span className={`${classes.btn} ${classes.text_success}`}>`
                             <span className={`${classes.fas} fa-th px-md-2 px-1`}></span>
@@ -34,7 +80,7 @@ function Products() {
                             <span className={classes.checkmark}></span>
                         </label>
                     </div>
-                    <div className={`form-inline d-flex align-items-center my-2 ${classes.checkbox} bg-light ${classes.border} mx-lg-2`}>
+                    {/* <div className={`form-inline d-flex align-items-center my-2 ${classes.checkbox} bg-light ${classes.border} mx-lg-2`}>
                         <label className={classes.tick}>Farm
                             <input type="checkbox" checked="checked" />
                             <span className={classes.check}></span>
@@ -59,7 +105,7 @@ function Products() {
                             <option value="USA">USA</option>
                             <option value="Uk">UK</option>
                         </select>
-                    </div>
+                    </div> */}
                 </div>
                 <div className={`d-sm-flex align-items-sm-center pt-2 ${classes.clear}`}>
                     <div className={`${classes.text_muted} filter-label`}>Applied Filters:</div>
