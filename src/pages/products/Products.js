@@ -6,14 +6,14 @@ import Footer from "../../components/footer/Footer";
 
 import { request } from '../../utils/AxiosHelper';
 
-import { useParams } from 'react-router-dom';
+// import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 function Products() {
 
-    const { categoryName } = useParams('categoryName');
+    // const { categoryName } = useParams('categoryName');
     const [categories, setCategories] = useState([]);
-    // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    const [totalProducts, setTotalProducts] = useState(0);
 
     useEffect(() => {
         // Fetch category data from your API endpoint
@@ -22,15 +22,23 @@ function Products() {
         request('GET', apiEndpoint)
           .then((response) => {
             setCategories(response.data);
+              // Calculate the total number of products
+            const total = response.data.reduce((acc, category) => {
+            return (
+              acc +
+              category.subcategories.reduce((subAcc, subcategory) => {
+                return subAcc + subcategory.products.length;
+              }, 0)
+            );
+          }, 0);
+  
+          setTotalProducts(total);
           })
           .catch((error) => {
             console.error('Error fetching category data:', error);
           });
       }, []);
 
-    //   const toggleDropdown = () => {
-    //     setIsDropdownOpen(!isDropdownOpen);
-    //   };
     
 
     return (
@@ -38,35 +46,18 @@ function Products() {
             <StaticNavBar/>
             <div className={classes.wrapper}>
                 <div className="d-md-flex align-items-md-center">
-                    <div className={classes.h3}>{categoryName}</div>
-                                
-                    {/* <div className={classes.dropdown}>
-                        <button onClick={toggleDropdown} className={classes.dropdownButton}>
-                            Categories
-                            <i
-                            className={`fas ${
-                                isDropdownOpen ? 'fa-caret-up' : 'fa-caret-down'
-                            }`}
-                            ></i>
-                        </button>
-                        {isDropdownOpen && (
-                            <ul className={classes.categoryList}>
-                            {categories.map((category) => (
-                                <li key={category.id}>{category.name}</li>
-                            ))}
-                            </ul>
-                        )}
-                    </div> */}
+                    {/* <div className={classes.h3}>{categoryName}</div> */}
+                  
                     <div className="ml-auto d-flex align-items-center views">
-                        <span className={`${classes.btn} ${classes.text_success}`}>`
+                        {/* <span className={`${classes.btn} ${classes.text_success}`}>`
                             <span className={`${classes.fas} fa-th px-md-2 px-1`}></span>
                             <span>Grid view</span>
                         </span>
                         <span className={classes.btn}>
                             <span className={`${classes.fas} fa-list-ul`}></span>
                             <span className="px-md-2 px-1">List view</span>
-                        </span>
-                        <span className={`${classes.green_label} px-md-2 px-1`}>428</span>
+                        </span> */}
+                        <span className={`${classes.green_label} px-md-2 px-1`}>{totalProducts}</span>
                         <span className={classes.text_muted}>Products</span>
                     </div>
                 </div>
@@ -124,7 +115,27 @@ function Products() {
                 </div>
                 <div className={`${classes.content} py-md-0 py-3 d-flex flex-sm-row flex-column align-items-start`}>
                     <section id="sidebar" className={classes.sidebar}>
-                        <div id="mobile-filter" className={classes.mobile_filter}>
+                    <div id="mobile-filter" className={classes.mobile_filter}>
+                        {categories.map((category) => (
+                            <div key={category.id}>
+                            <div className="py-3">
+                                <h5 className="font-weight-bold">{category.name}</h5>
+                                <ul className="list-group">
+                                  {category.subcategories.map((subcategory) => (
+                                    <li
+                                        key={subcategory.name}
+                                        className={`${classes.list_group_item} list-group-item-action d-flex justify-content-between align-items-center ${classes.category} list-group-item`}
+                                        >
+                                        {subcategory.name}
+                                        <span className={`badge ${classes.badge_primary} badge-pill`}>{subcategory.products.length}</span>
+                                    </li>
+                                ))}
+                                </ul>
+                            </div>
+                            </div>
+                        ))}
+                    </div>
+                        {/* <div id="mobile-filter" className={classes.mobile_filter}>
                             <div className="py-3">
                                 <h5 className="font-weight-bold">Categories</h5>
                                 <ul className="list-group">
@@ -145,8 +156,8 @@ function Products() {
                                         <span className={`badge ${classes.badge_primary} badge-pill`}>48</span>
                                     </li>
                                 </ul>
-                            </div>
-                            <div className="py-3">
+                            </div> */}
+                            {/* <div className="py-3">
                                 <h5 className="font-weight-bold">Brands</h5>
                                 <form className={classes.brand}>
                                     <div className="form-inline d-flex align-items-center py-1">
@@ -180,7 +191,7 @@ function Products() {
                                         </label>
                                     </div>
                                 </form>
-                            </div>
+                            </div> */}
                             {/*<div className="py-3">*/}
                             {/*    <h5 className="font-weight-bold">Rating</h5>*/}
                             {/*    <form className={classes.rating}>*/}
@@ -241,7 +252,7 @@ function Products() {
                             {/*        </div>*/}
                             {/*    </form>*/}
                             {/*</div>*/}
-                        </div>
+                        {/* </div> */}
                     </section>
                     <div>
                         <AllProducts/>

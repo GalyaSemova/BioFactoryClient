@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './CategoryCard.module.css'
+// import classes from './CategoryCard.module.css'
 
 import MainButton from '../button/MainButton';
 
@@ -10,7 +10,8 @@ function CategoryCard({ category }) {
             <div className="card-body">
                 <h5 className="card-title">{category.name}</h5>
                 <p className="card-text">{category.description}</p>
-                <MainButton href={`/shop/${category.name}`} value="Visit Our Store" />
+                {/* <MainButton href={`/shop/${category.name}`} value="Visit Our Store" /> */}
+                <MainButton href="/shop" value="Visit Our Store" />
             </div>
         </div>
     );
