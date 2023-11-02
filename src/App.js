@@ -8,6 +8,7 @@ import Register from "./pages/register/Register";
 import Products from "./pages/products/Products";
 import Dashboard from "./pages/userDashboard/Dashboard";
 import AddOffer from './pages/addOffer/AddOffer';
+import ProtectedRoutesUser from './security/protectedRoutes/ProtectedRoutesUser';
 
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
@@ -22,9 +23,12 @@ function App() {
             <Route exact path="/register" element={<Register/>}/>
             <Route exact path="/shop" element={<Products/>}/>
             <Route path="/shop/:categoryName" element={<Products />} />
-            <Route exact path="/dashboard" element={<Dashboard/>}/>
-            <Route exact path="/add-offer" element={<AddOffer/>}/>
-
+            {/* <Route exact path="/dashboard" element={<Dashboard/>}/>
+            <Route exact path="/add-offer" element={<AddOffer/>}/>  */}
+            <Route element={<ProtectedRoutesUser />}>
+                <Route exact path="/dashboard" element={<Dashboard/>}/>
+                <Route exact path="/add-offer" element={<AddOffer/>}/> 
+            </Route>
         </Routes>
       </Router>
   );
