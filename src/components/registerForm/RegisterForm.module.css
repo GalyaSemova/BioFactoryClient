@@ -10,3 +10,10 @@
 .glass_card:hover {
     background: rgba(255, 255, 255, 0.5); /* Slightly increase transparency on hover */
 }
+
+.errors {
+    font-size: small;
+    color: red;
+    margin-left: 5px;
+    float: right;
+  }
