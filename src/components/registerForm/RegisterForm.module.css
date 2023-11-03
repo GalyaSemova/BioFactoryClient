@@ -17,3 +17,19 @@
     margin-left: 5px;
     float: right;
   }
+
+  .button {
+    background-color: #008000;
+    color: #ffffff;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+
+  }
+
+  .button a:hover {
+    background-color: transparent;
+    color: black;
+    border: 2px solid #008000;
+
+}

@@ -237,7 +237,7 @@ function RegisterForm() {
                                 </div>
                                 <div className="d-grid gap-2 justify-content-center">
                                     {/* <MainButton value="Create Account" href="/login"/> */}
-                                    <button type="submit" >
+                                    <button type="submit" className={classes.button} >
                                         Create Account
                                     </button>
 
