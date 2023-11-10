@@ -1,5 +1,6 @@
 
 import './App.css';
+import React, { useState, useEffect } from "react";
 
 // pages && components
 import Home from '../src/pages/home/Home';
@@ -10,28 +11,38 @@ import Dashboard from "./pages/userDashboard/Dashboard";
 import AddOffer from './pages/addOffer/AddOffer';
 import ProtectedRoutesUser from './security/protectedRoutes/ProtectedRoutesUser';
 
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { Routes, Route } from "react-router-dom";
 
 
 
 function App() {
+
   return (
-      <Router>
+
+    <div>
         <Routes>
             <Route exact path="/" element={<Home/>}/>
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/register" element={<Register/>}/>
             <Route exact path="/shop" element={<Products/>}/>
             <Route path="/shop/:categoryName" element={<Products />} />
-            {/* <Route exact path="/dashboard" element={<Dashboard/>}/>
-            <Route exact path="/add-offer" element={<AddOffer/>}/>  */}
-            <Route element={<ProtectedRoutesUser />}>
-                <Route exact path="/dashboard" element={<Dashboard/>}/>
-                <Route exact path="/add-offer" element={<AddOffer/>}/> 
-            </Route>
+            <Route exact path="/dashboard" element={<Dashboard/>}/>
+            <Route exact path="/add-offer" element={<AddOffer/>}/> 
         </Routes>
-      </Router>
+    </div>
+      
   );
 }
 
 export default App;
+
+// import React from "react";
+// import "bootstrap/dist/css/bootstrap.min.css";
+
+// function App() {
+//   return (
+//     ...
+//   );
+// }
+
+// export default App;
