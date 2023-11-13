@@ -15,7 +15,7 @@ function AllProducts() {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        const apiUrl = "http://localhost:8080/api/products/all";
+        const apiUrl = "http://localhost:8080/api/v1/products/all";
 
         fetch(apiUrl)
             .then((response) => {

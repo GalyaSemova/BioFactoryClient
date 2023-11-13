@@ -2,7 +2,7 @@ import classes from '../../pages/products/Products.module.css'
 import MainButton from "../button/MainButton";
 function ProductCard({product}) {
     return(
-            <div className="col-lg-4 col-md-6 col-sm-10 offset-md-0 offset-sm-1">
+            <div className="col-lg-6 col-md-6 col-sm-10 offset-md-0 offset-sm-1">
                 <div className={classes.card}>
                     <img className={classes.img}
                          src="https://www.freepnglogos.com/uploads/cucumber-png/cucumber-png-image-purepng-transparent-png-26.png"
