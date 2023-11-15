@@ -1,10 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import StaticNavBar from "../../components/staticNavBar/StaticNavBar";
 import Footer from "../../components/footer/Footer";
 import MainButton from "../../components/button/MainButton";
 
 import AuthService from "../../services/AuthService";
+import { request } from "../../utils/AxiosHelper"
+
+// func helper for finding the user data
+
+ const getUserById = (userId) => {
+    const endpoint = `/users/${userId}`;
+    return request('GET', endpoint);
+  };
+
+  const getProductsById = (userId) => {
+    const endpoint = `/products/${userId}/all`;
+    return request('GET', endpoint);
+  };
 
 
 function Dashboard() {
@@ -18,6 +31,36 @@ function Dashboard() {
     // Profile
     const currentUser = AuthService.getCurrentUser();
 
+    const [userData, setUserData] = useState({});
+    const [productsData, setProductsData] = useState([]);
+
+    // find a user data by currentUser Id
+
+    useEffect(() => {
+
+      if (currentUser) {
+        // fetch user data
+        getUserById(currentUser.id)
+          .then((response) => {
+           
+            setUserData(response.data);
+          })
+          .catch((error) => {
+            console.error('Error fetching user data:', error);
+          });
+
+        // Fetch product data
+        getProductsById(currentUser.id)
+        .then((response) => {
+          setProductsData(response.data);
+        })
+        .catch((error) => {
+        console.error('Error fetching product data:', error);
+        });
+    }
+      
+  }, []);
+
     
     return (
         <div className="container-fluid container-fluid-custom pb-5 mb-5">
@@ -28,7 +71,7 @@ function Dashboard() {
                 <div className="m-lg-2">
                     <div>
                         <div className="col">
-                            <h1>Hey, <strong>{currentUser.username}</strong></h1>
+                            <h1>Hey, <strong>{userData?.username}</strong></h1>
                         </div>
                         <div className="col text-end">
                             <MainButton href="dashboard/add" value="+ New Offer"/>
@@ -48,19 +91,7 @@ function Dashboard() {
                     </div> 
                     </div>
                   
-                    {/* <div className="col d-flex align-items-left">
-                        <MainButton href="#"
-                                    value="Profile"
-                                    className={`m-2 ${activeTab === "profile" ? "active" : ""}`}
-                                    onClick={() => handleTabClick("profile")}
-                        />  
-                        <MainButton href="#" 
-                                    value="My Offers" 
-                                    className={`m-2 ${activeTab === "offers" ? "active" : ""}`}
-                                    onClick={() => handleTabClick("offers")}
-                        />  
-                    </div>  */}
-
+            
                     <div className="container">
                         {/* Render content based on the active tab */}
                         {activeTab === "profile" && (
@@ -71,29 +102,41 @@ function Dashboard() {
 
                         <header className="jumbotron">
                           <h3>
-                            <strong>{currentUser.username}</strong> Profile
+                            <strong>{userData.username}</strong> Profile
                           </h3>
                         </header>
                         {/* TODO add Name , address and phone .fields */}
-                            <p>
+                            {/* <p>
                                 <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
                                 {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+                            </p> */}
+                            {/* <p>
+                                <strong>Id:</strong> {userData?.id}
+                            </p> */}
+                            <p>
+                                <strong>Username:</strong> {userData?.username}
                             </p>
                             <p>
-                                <strong>Id:</strong> {currentUser.id}
+                                <strong>Email:</strong> {userData?.email}
                             </p>
                             <p>
-                                <strong>Username:</strong> {currentUser.username}
+                                <strong>First Name:</strong> {userData?.firstName}
                             </p>
                             <p>
-                                <strong>Email:</strong> {currentUser.email}
+                                <strong>Last Name:</strong> {userData?.lastName}
                             </p>
-                        
-                            <strong>Authorities:</strong>
+                            <p>
+                                <strong>Phone Number:</strong> {userData?.phoneNumber}
+                            </p>
+                            <p>
+                                <strong>Address:</strong> {userData?.address}
+                            </p>
+                        {/* For testing the token */}
+                            {/* <strong>Authorities:</strong>
                             <ul>
                                 {currentUser.roles &&
                                 currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-                            </ul>  
+                            </ul>   */}
                         </div>
                     )} 
 
@@ -113,19 +156,21 @@ function Dashboard() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                    <th scope="row">1</th>
-                                    <td>Handbag</td>
-                                    <td>URL</td>
-                                    <td>5</td>
-                                    <td>300</td>
-                                    <td>The Best Product</td>
-                                    <td className="d-flex">
-                                        <MainButton href="" value="Edit" />
-                                        <MainButton href="" value="Delete" />
-                                    </td>
+
+                                {productsData.map((product, index) => (
+                                    <tr key={index}>
+                                        <th scope="row">{index + 1}</th>
+                                        <td>{product.name}</td>
+                                        <td>{product.imageUrl}</td>
+                                        <td>{product.quantity}</td>
+                                        <td>{product.price}</td>
+                                        <td>{product.description}</td>
+                                        <td className="d-flex">
+                                            {/* <MainButton href={`/edit/${product.id}`} value="Edit" />
+                                            <MainButton href={`/delete/${product.id}`} value="Delete" /> */}
+                                        </td>
                                     </tr>
-                                    {/* Add more rows for offers if needed */}
+                                    ))}            
                                 </tbody>
                                 </table>
                             </div>
