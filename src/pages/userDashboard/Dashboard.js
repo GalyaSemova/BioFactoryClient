@@ -5,7 +5,10 @@ import Footer from "../../components/footer/Footer";
 import MainButton from "../../components/button/MainButton";
 
 import AuthService from "../../services/AuthService";
-import { request } from "../../utils/AxiosHelper"
+import { request } from "../../utils/AxiosHelper";
+
+// for delete I need to cust the header
+import axios from 'axios';
 
 // func helper for finding the user data
 
@@ -36,30 +39,82 @@ function Dashboard() {
 
     // find a user data by currentUser Id
 
-    useEffect(() => {
+//     useEffect(() => {
 
-      if (currentUser) {
-        // fetch user data
-        getUserById(currentUser.id)
-          .then((response) => {
+//       if (currentUser) {
+//         // fetch user data
+//         getUserById(currentUser.id)
+//           .then((response) => {
            
-            setUserData(response.data);
-          })
-          .catch((error) => {
-            console.error('Error fetching user data:', error);
-          });
+//             setUserData(response.data);
+//           })
+//           .catch((error) => {
+//             console.error('Error fetching user data:', error);
+//           });
 
-        // Fetch product data
-        getProductsById(currentUser.id)
-        .then((response) => {
-          setProductsData(response.data);
-        })
-        .catch((error) => {
-        console.error('Error fetching product data:', error);
-        });
-    }
+//         // Fetch product data
+//         getProductsById(currentUser.id)
+//         .then((response) => {
+//           setProductsData(response.data);
+//         })
+//         .catch((error) => {
+//         console.error('Error fetching product data:', error);
+//         });
+//     }
       
-  }, []);
+//   }, []);
+
+useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (currentUser) {
+          const userResponse = await getUserById(currentUser.id);
+          setUserData(userResponse.data);
+
+          const productsResponse = await getProductsById(currentUser.id);
+          setProductsData(productsResponse.data);
+        }
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, [currentUser]);
+
+    // const deleteProductById = async (productId) => {
+    //   try {
+    //     const token = currentUser?.accessToken;
+    //     await request('DELETE', `/products/${productId}`, { headers: { Authorization: `Bearer ${token}` } });
+    //     //   updating the all products data after deletion
+    //     setProductsData((prevProducts) => prevProducts.filter(product => product.id !== productId));
+    //   } catch (error) {
+    //     console.error('Error deleting product:', error);
+        
+    //   }
+    // };
+    const deleteProductById = async (id) => {
+        try {
+          const token = currentUser?.accessToken;
+          console.log(token)
+          
+          await axios.delete(`http://localhost:8080/api/v1/products/${id}`, {
+            headers: { Authorization: `Bearer ${token}` },
+          });
+      
+          // Updating the all products data after deletion
+          setProductsData((prevProducts) => prevProducts.filter(product => product.id !== id));
+        } catch {
+        //   console.error('Error deleting product:', error);
+        console.log("Strange error :(");
+
+        }
+      };
+
+    //   const onDeleteProduct = productId => {
+    //     const token = currentUser?.accessToken;
+    //     axios.delete(`http://localhost:8080/api/v1/products/${productId}`, { data: { id: productId}, headers: { Authorization: `Bearer ${token}` } });
+    //   }
 
     
     return (
@@ -132,7 +187,7 @@ function Dashboard() {
                                 <strong>Address:</strong> {userData?.address}
                             </p>
                         {/* For testing the token */}
-                            {/* <strong>Authorities:</strong>
+                            {/* <strong>Authorities:</strong> {currentUser?.accessToken}
                             <ul>
                                 {currentUser.roles &&
                                 currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
@@ -166,8 +221,17 @@ function Dashboard() {
                                         <td>{product.price}</td>
                                         <td>{product.description}</td>
                                         <td className="d-flex">
-                                            {/* <MainButton href={`/edit/${product.id}`} value="Edit" />
-                                            <MainButton href={`/delete/${product.id}`} value="Delete" /> */}
+                                            {/* <MainButton href={`/edit/${product.id}`} value="Edit" /> */}
+                                            <MainButton 
+                                                onClick={() => deleteProductById(product.id)} 
+                                                value="Delete" 
+                                            /> 
+                                             <button className="btn btn-warning mb-2"
+                                                                onClick={() => deleteProductById(product.id)}
+                                            >Delete
+                                                            
+                                                        
+                                             </button>
                                         </td>
                                     </tr>
                                     ))}            
