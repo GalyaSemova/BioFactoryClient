@@ -5,39 +5,44 @@ import StaticNavBar from "../../components/staticNavBar/StaticNavBar";
 import Footer from "../../components/footer/Footer";
 
 import { request } from '../../utils/AxiosHelper';
+import { useParams } from 'react-router-dom';
 
 // import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 function Products() {
 
-    // const { categoryName } = useParams('categoryName');
+    
     const [categories, setCategories] = useState([]);
     const [totalProducts, setTotalProducts] = useState(0);
 
-    useEffect(() => {
-        // Fetch category data from your API endpoint
-        const apiEndpoint = '/categories';
+    const [subcategories, setSubcategories] = useState([]);
+    const [selectedCategory, setSelectedCategory] = useState({});
+    const [subcategoriesByCategory, setsubcategoryByCategory] = useState({});
+
+    const { category } = useParams();
+
+      useEffect(() => {
+       
+            // Fetch subcategory data for the specified category from your API endpoint
+            const apiEndpoint = '/categories/subcategories';
+        
+            request('GET', apiEndpoint)
+                .then((response) => {
+                    setSubcategories(response.data);
     
-        request('GET', apiEndpoint)
-          .then((response) => {
-            setCategories(response.data);
-              // Calculate the total number of products
-            const total = response.data.reduce((acc, category) => {
-            return (
-              acc +
-              category.subcategories.reduce((subAcc, subcategory) => {
-                return subAcc + subcategory.products.length;
-              }, 0)
-            );
-          }, 0);
-  
-          setTotalProducts(total);
-          })
-          .catch((error) => {
-            console.error('Error fetching category data:', error);
-          });
-      }, []);
+                    // Calculate the total number of products for the subcategories
+                    // const total = response.data.reduce((acc, subcategory) => {
+                    //     return acc + subcategory.products.length;
+                    // }, 0);
+    
+                    // setTotalProducts(total);
+                })
+                .catch((error) => {
+                    console.error('Error fetching subcategories data:', error);
+                });
+        
+    }, []);
 
     
 
@@ -46,7 +51,7 @@ function Products() {
             <StaticNavBar/>
             <div className={classes.wrapper}>
                 <div className="d-md-flex align-items-md-center">
-                    {/* <div className={classes.h3}>{categoryName}</div> */}
+                    {/* <div className={classes.h3}>{category}</div> */}
                   
                     <div className="ml-auto d-flex align-items-center views">
                         {/* <span className={`${classes.btn} ${classes.text_success}`}>`
@@ -115,26 +120,37 @@ function Products() {
                 </div>
                 <div className={`${classes.content} py-md-0 py-3 d-flex flex-sm-row flex-column align-items-start`}>
                     <section id="sidebar" className={classes.sidebar}>
-                    <div id="mobile-filter" className={classes.mobile_filter}>
-                        {categories.map((category) => (
-                            <div key={category.id}>
-                            <div className="py-3">
-                                <h5 className="font-weight-bold">{category.name}</h5>
-                                <ul className="list-group">
-                                  {category.subcategories.map((subcategory) => (
-                                    <li
-                                        key={subcategory.name}
-                                        className={`${classes.list_group_item} list-group-item-action d-flex justify-content-between align-items-center ${classes.category} list-group-item`}
-                                        >
-                                        {subcategory.name}
-                                        <span className={`badge ${classes.badge_primary} badge-pill`}>{subcategory.products.length}</span>
-                                    </li>
-                                ))}
-                                </ul>
-                            </div>
-                            </div>
-                        ))}
-                    </div>
+                    
+                       <div id="mobile-filter" className={classes.mobile_filter}>
+                           
+                            {subcategories.forEach((subcategory) => {
+                                if (!subcategoriesByCategory[subcategory.category]) {
+                                    subcategoriesByCategory[subcategory.category] = [];
+                                }
+                                subcategoriesByCategory[subcategory.category].push(subcategory);
+                            })}
+
+                            
+                            {Object.entries(subcategoriesByCategory).map(([category, subcategoriesInCategory]) => (
+                                <div key={category}>
+                                    <div className="py-3">
+                                        <h5 className="font-weight-bold">{category}</h5>
+                                        <ul className="list-group">
+                                            {subcategoriesInCategory.map((filteredSubcategory) => (
+                                                <li
+                                                    key={filteredSubcategory.name}
+                                                    className={`${classes.list_group_item} list-group-item-action d-flex justify-content-between align-items-center 
+                                                    ${classes.category} list-group-item`}
+                                                >
+                                                    {filteredSubcategory.name}
+                                                    {/* <span className={`badge ${classes.badge_primary} badge-pill`}>{filteredSubcategory.products.length}</span> */}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                         {/* <div id="mobile-filter" className={classes.mobile_filter}>
                             <div className="py-3">
                                 <h5 className="font-weight-bold">Categories</h5>
