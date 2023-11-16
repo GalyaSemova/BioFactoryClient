@@ -74,7 +74,7 @@ useEffect(() => {
     const deleteProductById = async (id) => {
         try {
           const token = currentUser?.accessToken;
-          console.log(token)
+        //   console.log(token)
 
 
           
