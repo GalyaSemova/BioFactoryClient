@@ -36,34 +36,9 @@ function Dashboard() {
 
     const [userData, setUserData] = useState({});
     const [productsData, setProductsData] = useState([]);
+    const [deletingProductId, setDeletingProductId] = useState(null);
 
-    // find a user data by currentUser Id
-
-//     useEffect(() => {
-
-//       if (currentUser) {
-//         // fetch user data
-//         getUserById(currentUser.id)
-//           .then((response) => {
-           
-//             setUserData(response.data);
-//           })
-//           .catch((error) => {
-//             console.error('Error fetching user data:', error);
-//           });
-
-//         // Fetch product data
-//         getProductsById(currentUser.id)
-//         .then((response) => {
-//           setProductsData(response.data);
-//         })
-//         .catch((error) => {
-//         console.error('Error fetching product data:', error);
-//         });
-//     }
-      
-//   }, []);
-
+    
 useEffect(() => {
     const fetchData = async () => {
       try {
@@ -82,21 +57,26 @@ useEffect(() => {
     fetchData();
   }, [currentUser]);
 
-    // const deleteProductById = async (productId) => {
-    //   try {
-    //     const token = currentUser?.accessToken;
-    //     await request('DELETE', `/products/${productId}`, { headers: { Authorization: `Bearer ${token}` } });
-    //     //   updating the all products data after deletion
-    //     setProductsData((prevProducts) => prevProducts.filter(product => product.id !== productId));
-    //   } catch (error) {
-    //     console.error('Error deleting product:', error);
-        
-    //   }
-    // };
+//   Modal
+    // const [showDeleteModal, setShowDeleteModal] = useState(false);
+
+    // const handleShowDeleteModal = (productId) => {
+    //     setDeletingProductId(productId);
+    //     setShowDeleteModal(true);
+    //   };
+    
+    //   const handleHideDeleteModal = () => {
+    //     setDeletingProductId(null);
+    //     setShowDeleteModal(false);
+    //   };
+
+
     const deleteProductById = async (id) => {
         try {
           const token = currentUser?.accessToken;
           console.log(token)
+
+
           
           await axios.delete(`http://localhost:8080/api/v1/products/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
@@ -110,11 +90,24 @@ useEffect(() => {
 
         }
       };
-
-    //   const onDeleteProduct = productId => {
-    //     const token = currentUser?.accessToken;
-    //     axios.delete(`http://localhost:8080/api/v1/products/${productId}`, { data: { id: productId}, headers: { Authorization: `Bearer ${token}` } });
-    //   }
+    // const deleteProductById = async () => {
+    //     try {
+    //       if (deletingProductId !== null) {
+    //         const token = currentUser?.accessToken;
+    //         await axios.delete(`http://localhost:8080/api/v1/products/${deletingProductId}`, {
+    //           headers: { Authorization: `Bearer ${token}` },
+    //         });
+    
+    //         // Updating the all products data after deletion
+    //         setProductsData((prevProducts) => prevProducts.filter(product => product.id !== deletingProductId));
+    //       }
+    
+    //       // Close the modal after deletion
+    //       handleHideDeleteModal();
+    //     } catch (error) {
+    //       console.error('Error deleting product:', error);
+    //     }
+    //   };
 
     
     return (
@@ -222,16 +215,20 @@ useEffect(() => {
                                         <td>{product.description}</td>
                                         <td className="d-flex">
                                             {/* <MainButton href={`/edit/${product.id}`} value="Edit" /> */}
-                                            <MainButton 
+                                            {/* <MainButton 
                                                 onClick={() => deleteProductById(product.id)} 
                                                 value="Delete" 
-                                            /> 
+                                            />  */}
                                              <button className="btn btn-warning mb-2"
-                                                                onClick={() => deleteProductById(product.id)}
-                                            >Delete
-                                                            
-                                                        
+                                                                onClick={() => deleteProductById(product.id)}>
+                                                                    Delete
                                              </button>
+                                            {/* <button
+                                                className="btn btn-warning mb-2"
+                                                onClick={() => handleShowDeleteModal(product.id)}
+                                            >
+                                                Delete
+                                            </button> */}
                                         </td>
                                     </tr>
                                     ))}            
@@ -239,9 +236,18 @@ useEffect(() => {
                                 </table>
                             </div>
                         )} 
+                         {/* Modal for deletion */}
+                            {/* {showDeleteModal && (
+                                <div className="modal">
+                                <div className="modal-content">
+                                    <p>Are you sure you want to delete this product?</p>
+                                    <button onClick={deletingProductId}>Yes</button>
+                                    <button onClick={handleHideDeleteModal}>No</button>
+                                </div>
+                                </div>
+                            )} */}
                 </div>  
-            </div>
-            
+            </div> 
         </div>
         <footer>
             <Footer/>
