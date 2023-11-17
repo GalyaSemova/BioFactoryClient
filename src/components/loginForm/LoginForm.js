@@ -144,7 +144,7 @@ function LoginForm() {
                                     {/*        <div className="form-check">*/}
                                     {/*            <input className="form-check-input" type="checkbox" value=""*/}
                                     {/*                   id="form2Example31" checked/>*/}
-                                    {/*            <label className="form-check-label" htmlFor="form2Example31">*/}
+                                    {/*            <label className="form-check-label" htmlFor="">*/}
                                     {/*                Remember me*/}
                                     {/*            </label>*/}
                                     {/*        </div>*/}
@@ -164,11 +164,6 @@ function LoginForm() {
                                           <span>Login</span>
                                       </button>
                                     </div>
-                                   
-                                    
-                                    {/*<button type="submit" className="btn btn-primary" style = {{*/}
-                                    {/*    backgroundColor: "#008000",*/}
-                                    {/*}}>Login</button>*/}
                                 </div>
 
                                 {message && (

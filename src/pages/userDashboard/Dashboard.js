@@ -36,7 +36,7 @@ function Dashboard() {
 
     const [userData, setUserData] = useState({});
     const [productsData, setProductsData] = useState([]);
-    const [deletingProductId, setDeletingProductId] = useState(null);
+    // const [deletingProductId, setDeletingProductId] = useState(null);
 
     
 useEffect(() => {
@@ -75,8 +75,6 @@ useEffect(() => {
         try {
           const token = currentUser?.accessToken;
         //   console.log(token)
-
-
           
           await axios.delete(`http://localhost:8080/api/v1/products/${id}`, {
             headers: { Authorization: `Bearer ${token}` },
@@ -180,15 +178,13 @@ useEffect(() => {
                                 <strong>Address:</strong> {userData?.address}
                             </p>
                         {/* For testing the token */}
-                            {/* <strong>Authorities:</strong> {currentUser?.accessToken}
-                            <ul>
+                            <strong>Authorities:</strong> {currentUser?.accessToken}
+                            {/* <ul>
                                 {currentUser.roles &&
                                 currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
                             </ul>   */}
                         </div>
                     )} 
-
-
                         {activeTab === "offers" && (
                             <div className="container">
                                 <table className="table">
