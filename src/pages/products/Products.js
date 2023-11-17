@@ -24,7 +24,7 @@ function Products() {
 
       useEffect(() => {
        
-            // Fetch subcategory data for the specified category from your API endpoint
+            // Fetch subcategory data for the specified category from API endpoint
             const apiEndpoint = '/categories/subcategories';
         
             request('GET', apiEndpoint)

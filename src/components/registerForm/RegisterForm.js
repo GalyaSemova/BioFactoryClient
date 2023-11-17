@@ -1,10 +1,9 @@
 import classes from './RegisterForm.module.css'
 
 import React, { useState, useRef } from "react";
-import { isEmail } from "validator";
 import { useNavigate } from "react-router-dom";
 
-import { Form, Button, Spinner } from 'react-bootstrap';
+import { Form } from 'react-bootstrap';
 
 
 import AuthService from "../../services/AuthService";
@@ -25,6 +24,7 @@ const RegisterForm = (props) => {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [successful, setSuccessful] = useState(false);
   const [message, setMessage] = useState("");
+
 
   const [fieldErrors, setFieldErrors] = useState({});
 
