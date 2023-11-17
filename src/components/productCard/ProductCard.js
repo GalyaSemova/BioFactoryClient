@@ -14,7 +14,7 @@ function ProductCard({product}) {
                     />
                     <div className={classes.card_body}>
                         <h5 className={classes.card_title}>{product.name}</h5>
-                        <p className={classes.card_text}>$1.50 / kg</p>
+                        <p className={classes.card_text}>EUR {product.price}</p>
                         {/*<button className={`btn ${classes.btn_success}`}>Add to Cart</button>*/}
                         <MainButton href="#" value="Add To Card"/>
                     </div>

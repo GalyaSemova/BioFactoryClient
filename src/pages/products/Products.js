@@ -5,46 +5,40 @@ import StaticNavBar from "../../components/staticNavBar/StaticNavBar";
 import Footer from "../../components/footer/Footer";
 
 import { request } from '../../utils/AxiosHelper';
-import { useParams } from 'react-router-dom';
-
-// import { useParams } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
 
 function Products() {
 
-    
-    const [categories, setCategories] = useState([]);
     const [totalProducts, setTotalProducts] = useState(0);
-
     const [subcategories, setSubcategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState({});
     const [subcategoriesByCategory, setsubcategoryByCategory] = useState({});
-
-    const { category } = useParams();
 
       useEffect(() => {
        
             // Fetch subcategory data for the specified category from API endpoint
             const apiEndpoint = '/categories/subcategories';
+            const apiAllProductsEndpoint = '/products/all';
         
             request('GET', apiEndpoint)
                 .then((response) => {
                     setSubcategories(response.data);
-    
-                    // Calculate the total number of products for the subcategories
-                    // const total = response.data.reduce((acc, subcategory) => {
-                    //     return acc + subcategory.products.length;
-                    // }, 0);
-    
-                    // setTotalProducts(total);
+
+                    request('GET', apiAllProductsEndpoint)
+                    .then((response) => {
+                      const total = response.data.reduce((acc, product) => {
+                        return acc + 1; 
+                      }, 0);
+                      setTotalProducts(total);
+                    })
+                    .catch((error) => {
+                      console.error('Error fetching total products:', error);
+                    });
                 })
                 .catch((error) => {
                     console.error('Error fetching subcategories data:', error);
                 });
         
     }, []);
-
-    
 
     return (
         <div>

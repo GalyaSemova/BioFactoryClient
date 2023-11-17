@@ -10,6 +10,9 @@ import { request } from "../../utils/AxiosHelper";
 // for delete I need to cust the header
 import axios from 'axios';
 
+import { FaEdit } from "react-icons/fa";
+import { FaDeleteLeft } from "react-icons/fa6";
+
 // func helper for finding the user data
 
  const getUserById = (userId) => {
@@ -82,10 +85,8 @@ useEffect(() => {
       
           // Updating the all products data after deletion
           setProductsData((prevProducts) => prevProducts.filter(product => product.id !== id));
-        } catch {
-        //   console.error('Error deleting product:', error);
-        console.log("Strange error :(");
-
+        } catch (error){
+          console.error('Error deleting product:', error);
         }
       };
     // const deleteProductById = async () => {
@@ -120,117 +121,140 @@ useEffect(() => {
                             <h1>Hey, <strong>{userData?.username}</strong></h1>
                         </div>
                         <div className="col text-end">
-                            <MainButton href="dashboard/add" value="+ New Offer"/>
-                            {/*<a href="/dashboard/add" className="btn btn-primary">+ New Offer</a>*/}
+                            <MainButton href="/add-offer" value="+ New Offer"/>
                         </div>   
                         <div className="col d-flex align-items-left">
-                        <MainButton href="#"
-                                    value="Profile"
-                                    className={`m-2 ${activeTab === "profile" ? "active" : ""}`}
-                                    onClick={() => handleTabClick("profile")}
-                        />  
-                        <MainButton href="#" 
-                                    value="My Offers" 
-                                    className={`m-2 ${activeTab === "offers" ? "active" : ""}`}
-                                    onClick={() => handleTabClick("offers")}
-                        />  
+                            <div className="m-lg-6 py-4">
+                                <MainButton href="#"
+                                        value="Profile"
+                                        className={`m-2 ${activeTab === "profile" ? "active" : ""}`}
+                                        onClick={() => handleTabClick("profile")}
+                                        style={{
+                                            border: '2px solid #008000',
+                                            backgroundColor: activeTab === 'profile' ? 'white' : '#008000',
+                                            color: activeTab === 'profile' ? '#008000' : 'white',
+                                            borderRadius: '10px',
+                                            padding: '10px 20px',
+                                            cursor: 'pointer',
+                                            textDecoration: 'none'
+                                          }}
+                                /> 
+                            </div>
+                            <div className="m-lg-6 py-4"> 
+                                <MainButton href="#" 
+                                        value="My Offers" 
+                                        className={`m-2 ${activeTab === "offers" ? "active" : ""}`}
+                                        onClick={() => handleTabClick("offers")}
+                                        style={{
+                                            border: '2px solid #008000',
+                                            backgroundColor: activeTab === 'offers' ? 'white' : '#008000',
+                                            color: activeTab === 'offers' ? '#008000' : 'white',
+                                            borderRadius: '10px',
+                                            padding: '10px 20px',
+                                            cursor: 'pointer',
+                                            textDecoration: 'none'
+                                          }}
+                                /> 
+
+                            </div> 
                     </div> 
                     </div>
-                  
-            
+
                     <div className="container">
                         {/* Render content based on the active tab */}
                         {activeTab === "profile" && (
-                        <div>
-                        
-                            <h2>Profile Content</h2>
-                         
-
-                        <header className="jumbotron">
-                          <h3>
-                            <strong>{userData.username}</strong> Profile
-                          </h3>
-                        </header>
-                        {/* TODO add Name , address and phone .fields */}
-                            {/* <p>
-                                <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
-                                {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
-                            </p> */}
-                            {/* <p>
-                                <strong>Id:</strong> {userData?.id}
-                            </p> */}
-                            <p>
-                                <strong>Username:</strong> {userData?.username}
-                            </p>
-                            <p>
-                                <strong>Email:</strong> {userData?.email}
-                            </p>
-                            <p>
-                                <strong>First Name:</strong> {userData?.firstName}
-                            </p>
-                            <p>
-                                <strong>Last Name:</strong> {userData?.lastName}
-                            </p>
-                            <p>
-                                <strong>Phone Number:</strong> {userData?.phoneNumber}
-                            </p>
-                            <p>
-                                <strong>Address:</strong> {userData?.address}
-                            </p>
-                        {/* For testing the token */}
-                            <strong>Authorities:</strong> {currentUser?.accessToken}
-                            {/* <ul>
-                                {currentUser.roles &&
-                                currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
-                            </ul>   */}
+                        <div className="container mt-5">
+                        <h2 className="mb-4">Personal Information</h2>
+                        {/* Other content... */}
+                        <div className="card p-3">
+                          {/* Uncomment the header if needed */}
+                          {/* <header className="jumbotron">
+                            <h3>
+                              <strong>{userData.username}</strong> Profile
+                            </h3>
+                          </header> */}
+                          {/* For testing */}
+                          {/* <p>
+                              <strong>Token:</strong> {currentUser.accessToken.substring(0, 20)} ...{" "}
+                              {currentUser.accessToken.substr(currentUser.accessToken.length - 20)}
+                          </p> */}
+                          {/* <p>
+                              <strong>Id:</strong> {userData?.id}
+                          </p> */}
+                          <p>
+                            <strong>Username:</strong> {userData?.username}
+                          </p>
+                          <p>
+                            <strong>Email:</strong> {userData?.email}
+                          </p>
+                          <p>
+                            <strong>First Name:</strong> {userData?.firstName}
+                          </p>
+                          <p>
+                            <strong>Last Name:</strong> {userData?.lastName}
+                          </p>
+                          <p>
+                            <strong>Phone Number:</strong> {userData?.phoneNumber}
+                          </p>
+                          <p>
+                            <strong>Address:</strong> {userData?.address}
+                          </p>
+                          {/* For testing the token */}
+                          {/* <strong>Authorities:</strong> {currentUser?.accessToken} */}
+                          {/* <ul>
+                              {currentUser.roles &&
+                              currentUser.roles.map((role, index) => <li key={index}>{role}</li>)}
+                          </ul> */}
                         </div>
+                      </div>
                     )} 
                         {activeTab === "offers" && (
-                            <div className="container">
-                                <table className="table">
-                                <thead>
-                                    <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Img</th>
-                                    <th scope="col">Quantity</th>
-                                    <th scope="col">Price(EUR)</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-
-                                {productsData.map((product, index) => (
-                                    <tr key={index}>
-                                        <th scope="row">{index + 1}</th>
-                                        <td>{product.name}</td>
-                                        <td>{product.imageUrl}</td>
-                                        <td>{product.quantity}</td>
-                                        <td>{product.price}</td>
-                                        <td>{product.description}</td>
-                                        <td className="d-flex">
-                                            {/* <MainButton href={`/edit/${product.id}`} value="Edit" /> */}
-                                            {/* <MainButton 
-                                                onClick={() => deleteProductById(product.id)} 
-                                                value="Delete" 
-                                            />  */}
-                                             <button className="btn btn-warning mb-2"
-                                                                onClick={() => deleteProductById(product.id)}>
-                                                                    Delete
-                                             </button>
-                                            {/* <button
-                                                className="btn btn-warning mb-2"
-                                                onClick={() => handleShowDeleteModal(product.id)}
-                                            >
-                                                Delete
-                                            </button> */}
-                                        </td>
-                                    </tr>
-                                    ))}            
-                                </tbody>
-                                </table>
-                            </div>
+                         <div className="container">
+                         <table className="table table-striped table-bordered">
+                           <thead className="thead-dark">
+                             <tr>
+                               <th scope="col">#</th>
+                               <th scope="col">Name</th>
+                               <th scope="col">Img</th>
+                               <th scope="col">Quantity</th>
+                               <th scope="col">Price(EUR)</th>
+                               <th scope="col">Description</th>
+                               <th scope="col">Action</th>
+                             </tr>
+                           </thead>
+                           <tbody>
+                             {productsData.map((product, index) => (
+                               <tr key={index}>
+                                 <th scope="row">{index + 1}</th>
+                                 <td>{product.name}</td>
+                                 <td>
+                                   <img
+                                     src={product.imageUrl}
+                                     alt={product.name}
+                                     className="img-fluid"
+                                     style={{ maxWidth: '50px', maxHeight: '50px' }}
+                                   />
+                                 </td>
+                                 <td>{product.quantityAvailable}</td>
+                                 <td>{product.price}</td>
+                                 <td>{product.description}</td>
+                                 <td className="d-flex">
+                                   <button type="button" className="btn btn-dark mb-2">
+                                     <FaEdit className="mr-2" /> Edit
+                                   </button>
+                                   <button
+                                     type="button"
+                                     className="btn btn-warning mb-2 ml-2"
+                                     onClick={() => deleteProductById(product.id)}
+                                   >
+                                     <FaDeleteLeft className="mr-2" /> Delete
+                                   </button>
+                                 </td>
+                               </tr>
+                             ))}
+                           </tbody>
+                         </table>
+                       </div>
                         )} 
                          {/* Modal for deletion */}
                             {/* {showDeleteModal && (

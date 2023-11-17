@@ -13,6 +13,8 @@ import ProtectedRoutesUser from './security/protectedRoutes/ProtectedRoutesUser'
 
 import { Routes, Route } from "react-router-dom";
 
+// import { BrowserRouter as Routes, Route } from 'react-router-dom';
+
 
 
 function App() {
@@ -27,6 +29,9 @@ function App() {
             <Route exact path="/shop" element={<Products/>}/>
             <Route path="/shop/:categoryName" element={<Products />} />
             <Route exact path="/dashboard" element={<Dashboard/>}/>
+            {/* <Route element={ProtectedRoutesUser}>
+               <Route exact path="/dashboard" element={<Dashboard/>}/>
+            </Route> */}
             <Route exact path="/add-offer" element={<AddOffer/>}/> 
         </Routes>
     </div>
@@ -35,14 +40,3 @@ function App() {
 }
 
 export default App;
-
-// import React from "react";
-// import "bootstrap/dist/css/bootstrap.min.css";
-
-// function App() {
-//   return (
-//     ...
-//   );
-// }
-
-// export default App;
