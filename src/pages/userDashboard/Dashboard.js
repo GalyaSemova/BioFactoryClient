@@ -33,6 +33,16 @@ function Dashboard() {
     const [isEditModalOpen, setIsEditModalOpen] = useState(false);
     const [selectedProduct, setSelectedProduct] = useState(null);
 
+    // Profile
+    const currentUser = AuthService.getCurrentUser();
+
+    // Validations
+    const [fieldErrors, setFieldErrors] = useState({});
+
+    const [userData, setUserData] = useState({});
+    const [productsData, setProductsData] = useState([]);
+    // const [deletingProductId, setDeletingProductId] = useState(null);
+    
 
     const openModal = (product) => {
       setSelectedProduct(product);
@@ -43,26 +53,42 @@ function Dashboard() {
       setIsEditModalOpen(false);
     };
 
-    const handleEdit = (editedProduct) => {
-      // TODO
-      console.log('Saving edited product:', editedProduct);
-      
+    const handleEdit = async (editedProduct) => {
+      try {
+
+        console.log('Editing product:', editedProduct);
+        const token = currentUser?.accessToken;
+    
+        await axios.patch(
+          `http://localhost:8080/api/v1/products/${editedProduct.id}`,
+          editedProduct, // Include the updated product data in the request body
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        console.log('Apicall done:', editedProduct);
+    
+        setProductsData((prevProducts) =>
+          prevProducts.map((product) =>
+            product.id === editedProduct.id ? editedProduct : product
+          )
+        );
+    
+        console.log('Product successfully edited:', editedProduct);
+      } catch (error) {
+        if (error.response && error.response.data && error.response.data.errors) {
+          setFieldErrors(error.response.data.errors);
+        } else {
+          console.error('Error editing product:', error);
+        }   
+      }
     };
 
     const handleTabClick = (tab) => {
       setActiveTab(tab);
     };
-
-    // Profile
-    const currentUser = AuthService.getCurrentUser();
-
-    const [userData, setUserData] = useState({});
-    const [productsData, setProductsData] = useState([]);
-    // const [deletingProductId, setDeletingProductId] = useState(null);
-    
-
-    
-useEffect(() => {
+   
+  useEffect(() => {
     const fetchData = async () => {
       try {
         if (currentUser) {
@@ -281,6 +307,7 @@ useEffect(() => {
                               onClose={closeModal}
                               product={selectedProduct}
                               onSave={handleEdit}
+                              fieldErrors={fieldErrors} 
                             />
                        </div>
                         )} 

@@ -5,9 +5,9 @@ import Form from 'react-bootstrap/Form';
 
 import { useState, useEffect } from 'react';
 
-// TODO implement patch endpoint with axios on Dashboard + m ake some styling changes
+// TODO check why the validation messages aree not displayed properly
 
-function EditProductModal({ isOpen, onClose, product, onSave }) {
+function EditProductModal({ isOpen, onClose, product, onSave, fieldErrors }) {
   const [editedProduct, setEditedProduct] = useState({ ...product });
 
   useEffect(() => {
@@ -39,6 +39,9 @@ function EditProductModal({ isOpen, onClose, product, onSave }) {
               value={editedProduct.name}
               onChange={handleInputChange}
             />
+            {fieldErrors.name && (
+              <Form.Text className="text-danger">{fieldErrors.name}</Form.Text>
+            )}
           </Form.Group>
           <Form.Group controlId="formProductImageUrl">
             <Form.Label>Image Url:</Form.Label>
@@ -57,6 +60,9 @@ function EditProductModal({ isOpen, onClose, product, onSave }) {
               value={editedProduct.quantityAvailable}
               onChange={handleInputChange}
             />
+             {fieldErrors.quantityAvailable && (
+              <Form.Text className="text-danger">{fieldErrors.quantityAvailable}</Form.Text>
+            )}
           </Form.Group>
           <Form.Group controlId="formProductPrice">
             <Form.Label>Price(EUR):</Form.Label>
@@ -66,6 +72,9 @@ function EditProductModal({ isOpen, onClose, product, onSave }) {
               value={editedProduct.price}
               onChange={handleInputChange}
             />
+             {fieldErrors.price && (
+              <Form.Text className="text-danger">{fieldErrors.price}</Form.Text>
+            )}
           </Form.Group>
           <Form.Group controlId="formProductDescription">
             <Form.Label>Description:</Form.Label>
@@ -77,6 +86,15 @@ function EditProductModal({ isOpen, onClose, product, onSave }) {
               onChange={handleInputChange}
             />
           </Form.Group>
+          {/* <Form.Group controlId="formProductSubcategory">
+            <Form.Label>Subcategory:</Form.Label>
+            <Form.Control
+              type="text"
+              name="subcategory"
+              value={editedProduct.subcategory}
+              onChange={handleInputChange}
+            />
+          </Form.Group> */}
         </Form>
       </Modal.Body>
       <Modal.Footer>
