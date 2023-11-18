@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import StaticNavBar from "../../components/staticNavBar/StaticNavBar";
 import Footer from "../../components/footer/Footer";
 import MainButton from "../../components/button/MainButton";
+import EditProductModal from "./EditProductModal";
 
 import AuthService from "../../services/AuthService";
 import { request } from "../../utils/AxiosHelper";
@@ -29,6 +30,24 @@ import { FaDeleteLeft } from "react-icons/fa6";
 function Dashboard() {
 
     const [activeTab, setActiveTab] = useState("profile");
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+    const [selectedProduct, setSelectedProduct] = useState(null);
+
+
+    const openModal = (product) => {
+      setSelectedProduct(product);
+      setIsEditModalOpen(true);
+    };
+  
+    const closeModal = () => {
+      setIsEditModalOpen(false);
+    };
+
+    const handleEdit = (editedProduct) => {
+      // TODO
+      console.log('Saving edited product:', editedProduct);
+      
+    };
 
     const handleTabClick = (tab) => {
       setActiveTab(tab);
@@ -40,6 +59,7 @@ function Dashboard() {
     const [userData, setUserData] = useState({});
     const [productsData, setProductsData] = useState([]);
     // const [deletingProductId, setDeletingProductId] = useState(null);
+    
 
     
 useEffect(() => {
@@ -165,9 +185,9 @@ useEffect(() => {
                         {activeTab === "profile" && (
                         <div className="container mt-5">
                         <h2 className="mb-4">Personal Information</h2>
-                        {/* Other content... */}
+                        
                         <div className="card p-3">
-                          {/* Uncomment the header if needed */}
+                          
                           {/* <header className="jumbotron">
                             <h3>
                               <strong>{userData.username}</strong> Profile
@@ -210,7 +230,7 @@ useEffect(() => {
                     )} 
                         {activeTab === "offers" && (
                          <div className="container">
-                         <table className="table table-striped table-bordered">
+                          <table className="table table-striped table-bordered">
                            <thead className="thead-dark">
                              <tr>
                                <th scope="col">#</th>
@@ -240,7 +260,8 @@ useEffect(() => {
                                  <td>{product.description}</td>
                                  <td className="d-flex">
                                    <button type="button" className="btn btn-dark mb-2">
-                                     <FaEdit className="mr-2" /> Edit
+                                     <FaEdit className="mr-2" 
+                                     onClick={() => openModal(product)}/> Edit
                                    </button>
                                    <button
                                      type="button"
@@ -251,9 +272,16 @@ useEffect(() => {
                                    </button>
                                  </td>
                                </tr>
+                               
                              ))}
                            </tbody>
                          </table>
+                           <EditProductModal
+                              isOpen={isEditModalOpen}
+                              onClose={closeModal}
+                              product={selectedProduct}
+                              onSave={handleEdit}
+                            />
                        </div>
                         )} 
                          {/* Modal for deletion */}
