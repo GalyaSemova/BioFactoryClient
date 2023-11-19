@@ -24,7 +24,7 @@ const Pagination = ({ current, pages }) => {
                                 {pageNumber === current ? (
                                     <a className="page-link" href="#">{pageNumber}</a>
                                 ) : (
-                                    <a className="page-link" href={`/dashboard/?page=${pageNumber}`}>{pageNumber}</a>
+                                    <a className="page-link" href="#">{pageNumber}</a>
                                 )}
                             </li>
                         ))}
@@ -32,7 +32,7 @@ const Pagination = ({ current, pages }) => {
                         {current === pages ? (
                             <li className="page-item disabled"><a className="page-link">Last</a></li>
                         ) : (
-                            <li className="page-item"><a href={`/dashboard/?page=${pages}`} className="page-link">Last</a></li>
+                            <li className="page-item"><a href={`#`} className="page-link">Last</a></li>
                         )}
                     </ul>
                 </nav>

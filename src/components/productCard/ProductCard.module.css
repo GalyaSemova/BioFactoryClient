@@ -1,0 +1,20 @@
+.cardContainer {
+    height: 400px; 
+  }
+  
+  .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border: 1px solid #ddd; 
+  }
+  
+  .img {
+    object-fit: cover;
+    height: 100%; 
+  }
+  
+  .card_body {
+    flex-grow: 1;
+    padding: 1rem;
+  }
