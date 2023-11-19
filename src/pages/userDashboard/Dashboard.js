@@ -42,7 +42,6 @@ function Dashboard() {
 
     const [userData, setUserData] = useState({});
     const [productsData, setProductsData] = useState([]);
-  
 
     // Delete product modal implementation
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -191,12 +190,26 @@ function Dashboard() {
                     </div>
 
                     <div className="container">
-                        {/* Render content based on the active tab */}
-                        {activeTab === "profile" && (
+                       {activeTab === "profile" && (
                         <div className="container mt-5">
+                          
                         <h2 className="mb-4">Personal Information</h2>
-                        
-                        <div className="card p-3">
+                        <div className="card p-3">  
+                          <div className="col text-end"> 
+                             <button
+                              type="button"
+                              style={{ backgroundColor: '#008000' , margin: '1px'}}
+                              className="btn btn-primary"
+                             >
+                              Edit Info
+                            </button>
+                            <button
+                              type="button"
+                              className="btn btn-danger"
+                            >
+                              Delete My Account
+                            </button>
+                        </div>
                           
                           {/* <header className="jumbotron">
                             <h3>

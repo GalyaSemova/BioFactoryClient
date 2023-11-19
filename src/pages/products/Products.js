@@ -11,7 +11,7 @@ function Products() {
 
     const [totalProducts, setTotalProducts] = useState(0);
     const [subcategories, setSubcategories] = useState([]);
-    const [subcategoriesByCategory, setsubcategoryByCategory] = useState({});
+    const [subcategoriesByCategory, setsubcategoriesByCategory] = useState({});
 
       useEffect(() => {
        
@@ -39,6 +39,20 @@ function Products() {
                 });
         
     }, []);
+
+    // useEffect(() => {
+    //     const fetchProductCounts = async () => {
+    //         const counts = await Promise.all(subcategories.map(subcategory => {
+    //             const apiProductsBySubcategory = `/products/${subcategory.name}`;
+    //             return request('GET', apiProductsBySubcategory).then(response => response.data.length);
+    //         }));
+    
+    //         const subcategoryCountMap = Object.fromEntries(subcategories.map((subcategory, index) => [subcategory.name, counts[index]]));
+    //         setsubcategoriesByCategory(subcategoryCountMap);
+    //     };
+    
+    //     fetchProductCounts();
+    // }, [subcategories]);
 
     return (
         <div>
@@ -137,7 +151,7 @@ function Products() {
                                                     ${classes.category} list-group-item`}
                                                 >
                                                     {filteredSubcategory.name}
-                                                    {/* <span className={`badge ${classes.badge_primary} badge-pill`}>{filteredSubcategory.products.length}</span> */}
+                                                    <span className={`badge ${classes.badge_primary} badge-pill`}>{filteredSubcategory.productCount}</span>
                                                 </li>
                                             ))}
                                         </ul>
