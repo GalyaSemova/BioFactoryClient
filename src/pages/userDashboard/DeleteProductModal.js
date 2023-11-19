@@ -11,10 +11,13 @@ function DeleteProductModal({ isOpen, onClose, onDelete, productName }) {
     
       return (
         <Modal show={isOpen} onHide={onClose} centered>
-
-            {/* TODO -> add Modal body content and implement on Dashboard page */}
-        
-          <Modal.Footer>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Product</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <p>Are you sure you want to delete the product "{productName}"?</p>
+          </Modal.Body>  
+         <Modal.Footer>
             <Button variant="danger" onClick={handleDelete}>
               Delete
             </Button>

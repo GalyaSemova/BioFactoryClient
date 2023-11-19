@@ -4,6 +4,7 @@ import StaticNavBar from "../../components/staticNavBar/StaticNavBar";
 import Footer from "../../components/footer/Footer";
 import MainButton from "../../components/button/MainButton";
 import EditProductModal from "./EditProductModal";
+import DeleteProductModal from "./DeleteProductModal";
 
 import AuthService from "../../services/AuthService";
 import { request } from "../../utils/AxiosHelper";
@@ -41,8 +42,23 @@ function Dashboard() {
 
     const [userData, setUserData] = useState({});
     const [productsData, setProductsData] = useState([]);
-    // const [deletingProductId, setDeletingProductId] = useState(null);
+  
+
+    // Delete product modal implementation
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [selectedProductForDelete, setSelectedProductForDelete] = useState(null);
+
+    const handleShowDeleteModal = (product) => {
+      setSelectedProductForDelete(product);
+      setIsDeleteModalOpen(true);
+    };
+
+    const handleHideDeleteModal = () => {
+      setSelectedProductForDelete(null);
+      setIsDeleteModalOpen(false);
+    };
     
+    // Edit modal impl
 
     const openModal = (product) => {
       setSelectedProduct(product);
@@ -106,21 +122,8 @@ function Dashboard() {
     fetchData();
   }, [currentUser]);
 
-//   Modal
-    // const [showDeleteModal, setShowDeleteModal] = useState(false);
 
-    // const handleShowDeleteModal = (productId) => {
-    //     setDeletingProductId(productId);
-    //     setShowDeleteModal(true);
-    //   };
-    
-    //   const handleHideDeleteModal = () => {
-    //     setDeletingProductId(null);
-    //     setShowDeleteModal(false);
-    //   };
-
-
-    const deleteProductById = async (id) => {
+   const deleteProductById = async (id) => {
         try {
           const token = currentUser?.accessToken;
         //   console.log(token)
@@ -135,26 +138,7 @@ function Dashboard() {
           console.error('Error deleting product:', error);
         }
       };
-    // const deleteProductById = async () => {
-    //     try {
-    //       if (deletingProductId !== null) {
-    //         const token = currentUser?.accessToken;
-    //         await axios.delete(`http://localhost:8080/api/v1/products/${deletingProductId}`, {
-    //           headers: { Authorization: `Bearer ${token}` },
-    //         });
-    
-    //         // Updating the all products data after deletion
-    //         setProductsData((prevProducts) => prevProducts.filter(product => product.id !== deletingProductId));
-    //       }
-    
-    //       // Close the modal after deletion
-    //       handleHideDeleteModal();
-    //     } catch (error) {
-    //       console.error('Error deleting product:', error);
-    //     }
-    //   };
 
-    
     return (
         <div className="container-fluid container-fluid-custom pb-5 mb-5">
             <div>
@@ -292,7 +276,7 @@ function Dashboard() {
                                    <button
                                      type="button"
                                      className="btn btn-warning mb-2 ml-2"
-                                     onClick={() => deleteProductById(product.id)}
+                                     onClick={() => handleShowDeleteModal(product)}
                                    >
                                      <FaDeleteLeft className="mr-2" /> Delete
                                    </button>
@@ -309,19 +293,15 @@ function Dashboard() {
                               onSave={handleEdit}
                               fieldErrors={fieldErrors} 
                             />
+                            <DeleteProductModal
+                                isOpen={isDeleteModalOpen}
+                                onClose={handleHideDeleteModal}
+                                onDelete={() => deleteProductById(selectedProductForDelete?.id)}
+                                productName={selectedProductForDelete?.name}
+                            />
                        </div>
                         )} 
-                         {/* Modal for deletion */}
-                            {/* {showDeleteModal && (
-                                <div className="modal">
-                                <div className="modal-content">
-                                    <p>Are you sure you want to delete this product?</p>
-                                    <button onClick={deletingProductId}>Yes</button>
-                                    <button onClick={handleHideDeleteModal}>No</button>
-                                </div>
-                                </div>
-                            )} */}
-                </div>  
+                 </div>  
             </div> 
         </div>
         <footer>
