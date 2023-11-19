@@ -1,28 +1,11 @@
 import classes from '../../pages/products/Products.module.css'
-
-
 import React, { useEffect, useState } from "react";
-
 import ProductCard from "../productCard/ProductCard";
-import Pagination from "../../components/pagination/Pagination";
-import PaginationItem from '../pagination/PaginationItem';
-import usePagination from '../pagination/usePagination';
 
 
-function AllProducts({data, itemsPerPage, startFrom}) {
+function AllProducts() {
 
     // TODO Padination, check for partial page change and decide which one to use Pagination or PaginationItem
-
-    const currentPage = 1;
-    const totalPages = 10;
-
-    const {slicedData, pagination, prevPage, nextPage, changePage, setFilteredData, setSearching} = usePagination({
-        itemsPerPage: 1,
-        data,
-        startFrom: 1
-    });
-
-
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -48,17 +31,11 @@ function AllProducts({data, itemsPerPage, startFrom}) {
             <section id="products" className={`ml-sm-8 mt-8 mt-sm-0 ${classes.products}`}>
                 <div className="container py-3">
                     <div className="row">
-                    <PaginationItem
-                        pagination={pagination}
-                        prevPage={prevPage}
-                        changePage={changePage}
-                        nextPage={nextPage}
-                    />
-                        {products.map((product) => (
+                    {products.map((product) => (
                             <ProductCard key={product.id} product={product} />
                         ))}
                     </div>
-                    <Pagination  current={currentPage} pages={totalPages} />
+                    {/* <Pagination  current={currentPage} pages={totalPages} /> */}
                 </div>
             </section>
         </div>
