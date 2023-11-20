@@ -244,7 +244,7 @@ return (
                                           <optgroup key={category} label={category}>
 
                                             {subcategoriesInCategory.map((filteredSubcategory) => (
-                                              <option key={filteredSubcategory.name} value={filteredSubcategory.name}>
+                                              <option key={filteredSubcategory.id} value={filteredSubcategory.name}>
                                                 {filteredSubcategory.name}
                                               </option>
                                             ))}

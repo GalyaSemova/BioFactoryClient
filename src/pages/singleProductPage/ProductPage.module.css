@@ -1,0 +1,33 @@
+ .productPage {
+    padding: 20px;
+  }
+  
+  .productCard {
+    border-radius: 8px; 
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .productDetails {
+    padding: 20px;
+  }
+  
+  .productDetails h2 {
+    font-size: 24px;
+    color: #333; 
+  }
+  
+  .productDetails p {
+    margin-bottom: 10px;
+    color: #666; 
+  }
+  
+  .productDetails Button {
+    margin-top: 10px;
+  }
+
+  .productImage {
+    border-radius: 8px;
+
+  }
+  
