@@ -32,7 +32,7 @@ function ProductPage() {
   
   useEffect(() => {
     fetchProductData();
-  }, []);
+  }, [id]);
 
   if (!product) {
     return <p>Loading...</p>;
@@ -57,6 +57,9 @@ function ProductPage() {
           <p>{description}</p>
           <p>{price} EUR</p>
           <Button variant="success">Add to Cart</Button>
+          <Button variant="primary" className={`${main.reviewButton} mt-6`}>
+              Add a Review
+          </Button>
         </Col>
       </Row>
     </Container>
