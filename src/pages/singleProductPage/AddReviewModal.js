@@ -4,11 +4,24 @@ import classes from "./ProductPage.module.css";
 
 
 function AddReviewModal({ isOpen, onClose, onSave, fieldErrors = {} }) {
-  const [newReview, setNewReview] = useState({ reviewComment: '', rating: '1' });
+  const [newReview, setNewReview] = useState({ reviewComment: '', rating: '0' });
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewReview({ ...newReview, [name]: value });
+  };
+
+  // Handle star on click
+  // const handleStarClick = (selectedRating) => {
+  //   setNewReview({ ...newReview, rating: selectedRating.toString() });
+  // };
+  const handleStarClick = (selectedRating) => {
+    console.log('Star clicked!', selectedRating);
+    const newRating = selectedRating.toString();
+    setNewReview((prevReview) => ({
+      ...prevReview,
+      rating: newRating,
+    }));
   };
 
   const handleSave = () => {
@@ -39,11 +52,20 @@ function AddReviewModal({ isOpen, onClose, onSave, fieldErrors = {} }) {
           <Form.Group controlId="formReviewRating">
             <Form.Label>Rating:</Form.Label>
             <div className={classes.starRating}>
-              {[1, 2, 3, 4, 5].map((star) => (
+              {/* {[1, 2, 3, 4, 5].map((star) => (
                 <span
                   key={star}
                   className={star <= parseInt(newReview.rating) ? 'filled' : ''}
                   onClick={() => handleInputChange({ target: { name: 'rating', value: star.toString() } })}
+                >
+                  &#9733; 
+                </span>
+              ))} */}
+                {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  className={`star ${star <= parseInt(newReview.rating) ? classes.filled : ''}`}
+                  onClick={() => handleStarClick(star)}
                 >
                   &#9733; 
                 </span>

@@ -53,7 +53,7 @@ function ProductPage() {
 
       const dataToSend = {
         reviewComment: reviewData.reviewComment || '',
-        rating: reviewData.rating || '1',
+        rating: reviewData.rating || '0',
         product: product.id
       };
 
@@ -61,7 +61,9 @@ function ProductPage() {
         headers: { Authorization: `Bearer ${token}` },
       });
       console.log('Review added:', response);
-      // Optionally, you can update the UI or perform other actions after a successful review submission
+       // TODO Clear form fields after successful addition
+
+       
     } catch (error) {
       console.error('Error adding review:', error);
       if (error.response) {
