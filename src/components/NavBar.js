@@ -47,29 +47,6 @@ function NavBar(){
           console.error('Error fetching search results:', error);
         }
       };
-    //   const handleSearch = () => {
-
-    //     console.log("Handling search...");
-
-    //     const results = products.filter((product) =>
-    //       product.title.toLowerCase().includes(searchQuery.toLowerCase())
-    //     );
-
-    //     console.log("Search Query:", searchQuery);
-    //     console.log("Search Results:", results);
-    
-    //     setSearchResults(results);
-    
-    //     if (results.length > 0) {
-    //         console.log("Navigating to /searches");
-    //       // Navigate to search results page
-    //       navigate("/searches", { state: { searchResults: results } });
-    //     } else {
-    //         console.log("Navigating to /404");
-    //       // Navigate to 404 page if no results
-    //       navigate("/404");
-    //     }
-    //   };
 
 
     useEffect(() => {
@@ -181,7 +158,7 @@ function NavBar(){
                         <input
                         className="form-control me-2"
                         type="search"
-                        placeholder="Search by product name"
+                        placeholder="Find your product"
                         aria-label="Search"
                         onChange={(e) => {
                             // console.log("Input value:", e.target.value);

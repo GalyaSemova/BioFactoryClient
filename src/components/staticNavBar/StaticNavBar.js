@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
+import { request } from "../../utils/AxiosHelper";
 
 
 import Logo from '../logo/Logo'
@@ -11,7 +12,35 @@ function StaticNavBar() {
 
 
     const [currentUser, setCurrentUser] = useState(undefined);
+    const [searchQuery, setSearchQuery] = useState("");
+    const [searchResults, setSearchResults] = useState([]);
     const navigate = useNavigate();
+
+    const handleSearch = async () => {
+        try {
+          // Fetch all products
+          const apiSearchEndpoint = '/products/all';
+          const response = await request('GET', apiSearchEndpoint);
+    
+          const products = response.data;
+
+          const results = products.filter((product) =>
+          product.name.toLowerCase().includes(searchQuery.toLowerCase())
+        );
+    
+          setSearchResults(results);
+    
+          if (results.length > 0) {
+            // Navigate to search results page
+            navigate("/searches", { state: { searchResults: results } });
+          } else {
+            // Navigate to 404 page if no results
+            navigate("/404");
+          }
+        } catch (error) {
+          console.error('Error fetching search results:', error);
+        }
+      };
   
     useEffect(() => {
       const user = AuthService.getCurrentUser();
@@ -70,10 +99,24 @@ function StaticNavBar() {
                         </li> */}
                     </ul>
                     
-                    
-                    <form className="d-flex">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                        <MainButton value="Search" href="#"/>
+                    <form
+                        className="d-flex"
+                        onSubmit={(e) => {
+                        e.preventDefault();
+                        handleSearch();
+                        }}
+                    >
+                        <input
+                        className="form-control me-2"
+                        type="search"
+                        placeholder="Find your product"
+                        aria-label="Search"
+                        onChange={(e) => {
+                            // console.log("Input value:", e.target.value);
+                            setSearchQuery(e.target.value);
+                          }}
+                        />
+                        <MainButton type="button" value="Search" onClick={handleSearch} />
                     </form>
 
                     {currentUser ? (
