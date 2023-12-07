@@ -1,20 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, Button, Form } from 'react-bootstrap';
 import classes from "./ProductPage.module.css";
 
 
 function AddReviewModal({ isOpen, onClose, onSave, fieldErrors = {} }) {
   const [newReview, setNewReview] = useState({ reviewComment: '', rating: '0' });
+  const [errorMessage, setErrorMessage] = useState('');
+
+  useEffect(() => {
+    console.log('Updated error message:', errorMessage);
+  }, [errorMessage]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setNewReview({ ...newReview, [name]: value });
   };
 
-  // Handle star on click
-  // const handleStarClick = (selectedRating) => {
-  //   setNewReview({ ...newReview, rating: selectedRating.toString() });
-  // };
   const handleStarClick = (selectedRating) => {
     console.log('Star clicked!', selectedRating);
     const newRating = selectedRating.toString();
@@ -24,10 +25,23 @@ function AddReviewModal({ isOpen, onClose, onSave, fieldErrors = {} }) {
     }));
   };
 
-  const handleSave = () => {
-    onSave(newReview);
-    onClose();
+  // const handleSave = () => {
+  //   onSave(newReview);
+  //   onClose();
+  // };
+
+  const handleSave = async () => {
+    try {
+      const response = await onSave(newReview);
+      onClose();
+    } catch (error) {
+      console.error('Error:', error); 
+      console.log('Error message:', error.response.data);
+      setErrorMessage(error.response.data);
+      console.log('Updated error message:', errorMessage);
+    }
   };
+
 
   return (
     <Modal show={isOpen} onHide={onClose} centered>
@@ -35,6 +49,7 @@ function AddReviewModal({ isOpen, onClose, onSave, fieldErrors = {} }) {
         <Modal.Title>Add Review</Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        {errorMessage && <div className="text-danger mb-3">{errorMessage}</div>}
         <Form>
           <Form.Group controlId="formReviewComment">
             <Form.Label>Share your thoughts:</Form.Label>
@@ -52,15 +67,6 @@ function AddReviewModal({ isOpen, onClose, onSave, fieldErrors = {} }) {
           <Form.Group controlId="formReviewRating">
             <Form.Label>Rating:</Form.Label>
             <div className={classes.starRating}>
-              {/* {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star}
-                  className={star <= parseInt(newReview.rating) ? 'filled' : ''}
-                  onClick={() => handleInputChange({ target: { name: 'rating', value: star.toString() } })}
-                >
-                  &#9733; 
-                </span>
-              ))} */}
                 {[1, 2, 3, 4, 5].map((star) => (
                 <span
                   key={star}
