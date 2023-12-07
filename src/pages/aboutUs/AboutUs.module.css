@@ -1,0 +1,45 @@
+.container {
+    font-family: 'Arial', sans-serif;
+  }
+  
+  .section {
+    display: flex;
+    justify-content: space-between;
+    margin: 2rem;
+  }
+  
+  .content_section {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .title h1 {
+    /* font-size: 3.225rem; */
+    margin-bottom: 20px;
+    color: #008000;
+  }
+  
+  .content h3 {
+    font-size: 1.3rem;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #008000;
+  }
+  
+  .content p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  .button {
+    margin-top: 20px;
+  }
+  
+  .social {
+    margin-top: 20px;
+  }
+  
+  .iconedText {
+    margin-right: 10px;
+    font-size: 1.5rem;
+    display: inline-block;
+  }

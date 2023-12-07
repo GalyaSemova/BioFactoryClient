@@ -38,7 +38,7 @@ function Footer() {
                                         <div className="thumb-content"><a className="text-white" href="#">Lifestyle</a></div>
                                     </li> */}
                                     <li>
-                                        <div className="thumb-content"><a className="text-white" href="#">About Us</a></div>
+                                        <div className="thumb-content"><a className="text-white" href="/about-us">About Us</a></div>
                                     </li>
                                 </ul>
                             </div>
@@ -50,7 +50,7 @@ function Footer() {
                                 <p className="text-white">🌟 Be the First to Know: Don't miss a single headline, update, or exclusive story. 
                                 Subscribe to our newsletter and stay ahead of the news curve.</p>
                                 {/*<a className="btn text-white" href="https://bit.ly/3m9avif" target="_blank">Subscribe Now</a>*/}
-                                <MainButton value="Subscribe" href="https://bit.ly/3m9avif"/>
+                                <MainButton value="Subscribe" href="#"/>
                             </div>
                         </div>
 

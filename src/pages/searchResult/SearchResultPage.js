@@ -18,7 +18,7 @@ const SearchResultPage = () => {
        <div className="col-lg-6 p-4 my-5 mx-auto text-center"
        style={{ color: primaryColor }}>
         {searchResults.length > 0 ? (
-            <div className="col-lg-6 p-4 bg-primary text-light rounded"
+            <div className="col-lg-6 p-4 text-light rounded"
               style={{ backgroundColor: primaryColor, color: "#FFFFFF" }}
             >
             {searchResults.map((note, index) => (
