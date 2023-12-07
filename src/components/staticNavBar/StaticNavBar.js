@@ -72,11 +72,11 @@ function StaticNavBar() {
                         </li> */}
                         {currentUser ? (
                             <div className="navbar-nav ml-auto">
-                                {/* <li className="nav-item">
+                                <li className="nav-item">
                                 <Link to={"/dashboard"} className="nav-link text-white ">
                                     Welcome, {currentUser.username}
                                 </Link>
-                                </li> */}
+                                </li>
                                 <li className="nav-item">
                                   <a className="nav-link text-white" href="/shop">Store</a>
                                </li>

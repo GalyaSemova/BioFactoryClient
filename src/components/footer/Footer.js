@@ -26,13 +26,13 @@ function Footer() {
                                         <div className="thumb-content"><a className="text-white" href="#">Top Partners</a></div>
                                     </li> */}
                                     <li>
-                                        <div className="thumb-content"><a className="text-white" href="#">Success Stories</a></div>
+                                        <div className="thumb-content"><a className="text-white" href="/maintenance">Success Stories</a></div>
                                     </li>
                                     {/* <li>
                                         <div className="thumb-content"><a className="text-white" href="#">Event/Tickets</a></div>
                                     </li> */}
                                     <li>
-                                        <div className="thumb-content"><a className="text-white" href="#">News</a></div>
+                                        <div className="thumb-content"><a className="text-white" href="/maintenance">News</a></div>
                                     </li>
                                     {/* <li>
                                         <div className="thumb-content"><a className="text-white" href="#">Lifestyle</a></div>
@@ -49,7 +49,7 @@ function Footer() {
                                 <h5 className={`${classes.widget_title} text-white`}>Get Started<span></span></h5>
                                 <p className="text-white">🌟 Be the First to Know: Don't miss a single headline, update, or exclusive story. 
                                 Subscribe to our newsletter and stay ahead of the news curve.</p>
-                                {/*<a className="btn text-white" href="https://bit.ly/3m9avif" target="_blank">Subscribe Now</a>*/}
+                                {/*<a className="btn text-white" href="#" target="_blank">Subscribe Now</a>*/}
                                 <MainButton value="Subscribe" href="#"/>
                             </div>
                         </div>

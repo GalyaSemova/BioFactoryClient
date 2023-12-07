@@ -13,9 +13,35 @@ function Products() {
     const [subcategories, setSubcategories] = useState([]);
     const [subcategoriesByCategory, setsubcategoriesByCategory] = useState({});
 
+    const [sortBy, setSortBy] = useState('popularity'); // Default sorting
+    const [products, setProducts] = useState([]);  
+
+    const sortProducts = (sortByOption) => {
+        let sortedProducts = [...products];
+      
+        if (sortByOption === 'popularity') {
+          sortedProducts.sort((a, b) => b.popularity - a.popularity);
+        } else if (sortByOption === 'price') {
+          sortedProducts.sort((a, b) => a.price - b.price);
+        }
+      
+        setProducts(sortedProducts);
+      };
+
+
+      const handleSortChange = (event) => {
+        const sortByOption = event.target.value;
+        setSortBy((prevSortBy) => {
+            if (prevSortBy !== sortByOption) {
+                sortProducts(sortByOption);
+            }
+            return sortByOption;
+        });
+        sortProducts(sortByOption);
+      };
+
       useEffect(() => {
        
-            // Fetch subcategory data for the specified category from API endpoint
             const apiEndpoint = '/categories/subcategories';
             const apiAllProductsEndpoint = '/products/all';
         
@@ -29,6 +55,8 @@ function Products() {
                         return acc + 1; 
                       }, 0);
                       setTotalProducts(total);
+
+                      sortProducts(sortBy);
                     })
                     .catch((error) => {
                       console.error('Error fetching total products:', error);
@@ -37,8 +65,9 @@ function Products() {
                 .catch((error) => {
                     console.error('Error fetching subcategories data:', error);
                 });
+               
         
-    }, []);
+    }, [sortBy]);
 
     // useEffect(() => {
     //     const fetchProductCounts = async () => {
@@ -75,12 +104,28 @@ function Products() {
                     </div>
                 </div>
                 <div className="d-lg-flex align-items-lg-center pt-2">
-                    <div className={`form-inline d-flex align-items-center my-2 mr-lg-2 ${classes.radio} bg-light ${classes.border}`}>
-                        <label className={classes.options}>Most Popular
-                            <input type="radio" name="radio" />
-                            <span className={classes.checkmark}></span>
+                  {/* TODO  */}
+                    <div className={`form-inline d-flex align-items-center my-2 mr-lg-4 ${classes.radio} bg-light ${classes.border}`}>
+                        <label className={classes.options}>
+                            <input
+                            type="radio"
+                            name="sortBy"
+                            value="popularity"
+                            checked={sortBy === 'popularity'}
+                            onChange={handleSortChange}
+                            />
+                            Most Popular
+                                <span className={classes.checkmark}></span>
                         </label>
-                        <label className={classes.options}>Cheapest <input type="radio" name="radio" checked />
+                        <label className={classes.options}>
+                            <input
+                            type="radio"
+                            name="sortBy"
+                            value="price"
+                            checked={sortBy === 'price'}
+                            onChange={handleSortChange}
+                            />
+                            Cheapest
                             <span className={classes.checkmark}></span>
                         </label>
                     </div>
@@ -113,10 +158,7 @@ function Products() {
                 </div>
                 <div className={`d-sm-flex align-items-sm-center pt-2 ${classes.clear}`}>
                     <div className={`${classes.text_muted} filter-label`}>Applied Filters:</div>
-                    <div className={`${classes.green_label} font-weight-bold p-0 px-1 mx-sm-1 mx-0 my-sm-0 my-2`}>Selected Filter
-                        <span className={`px-1 ${classes.close}`}>&times;</span>
-                    </div>
-                    <div className={`${classes.green_label} font-weight-bold p-0 px-1 mx-sm-1 mx-0`}>Selected Filter
+                    <div className={`${classes.green_label} font-weight-bold p-0 px-1 mx-sm-1 mx-0 my-sm-0 my-2`}>All Products
                         <span className={`px-1 ${classes.close}`}>&times;</span>
                     </div>
                 </div>
@@ -279,7 +321,7 @@ function Products() {
                         {/* </div> */}
                     </section>
                     <div>
-                        <AllProducts/>
+                        <AllProducts products={products}/>
                     </div>
                 </div>
             </div>

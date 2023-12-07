@@ -7,6 +7,7 @@ import Home from '../src/pages/home/Home';
 import NotFoundPage from './pages/404/NotFoundPage';
 import SearchResultPage from './pages/searchResult/SearchResultPage';
 import AboutUs from './pages/aboutUs/AboutUs';
+import Maintenance from './pages/underMaintenance/Maintenance';
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Products from "./pages/products/Products";
@@ -31,12 +32,15 @@ function App() {
             <Route path="/404" element={<NotFoundPage/>}/>
             <Route path="/searches" element={<SearchResultPage/>}/>
             <Route path="/about-us" element={<AboutUs/>}/>
+            <Route path="/maintenance" element={<Maintenance/>}/>
             <Route exact path="/login" element={<Login/>}/>
             <Route exact path="/register" element={<Register/>}/>
             <Route exact path="/shop" element={<Products/>}/>
             <Route path="/shop/:categoryName" element={<Products />} />
             <Route path="/shop/product/:id" element={<ProductPage />} />
             <Route exact path="/dashboard" element={<Dashboard/>}/>
+            {/* <Route exact path="/dashboard" element={<ProtectedRoutesUser/>} ?
+                        (<Route element={<Dashboard/>}/>) : (<Route element={<Home/>}/>)}/> */}
             {/* <Route element={ProtectedRoutesUser}>
                <Route exact path="/dashboard" element={<Dashboard/>}/>
             </Route> */}
