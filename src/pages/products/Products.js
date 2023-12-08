@@ -16,27 +16,12 @@ function Products() {
     const [sortBy, setSortBy] = useState('popularity'); // Default sorting
     const [products, setProducts] = useState([]);  
 
-    const sortProducts = (sortByOption) => {
-        let sortedProducts = [...products];
-      
-        if (sortByOption === 'popularity') {
-          sortedProducts.sort((a, b) => b.popularity - a.popularity);
-        } else if (sortByOption === 'price') {
-          sortedProducts.sort((a, b) => a.price - b.price);
-        }
-      
-        setProducts(sortedProducts);
-      };
 
 
       const handleSortChange = (event) => {
         const sortByOption = event.target.value;
-        setSortBy((prevSortBy) => {
-            if (prevSortBy !== sortByOption) {
-                sortProducts(sortByOption);
-            }
-            return sortByOption;
-        });
+      
+        setSortBy(sortByOption);
         sortProducts(sortByOption);
       };
 
@@ -55,8 +40,10 @@ function Products() {
                         return acc + 1; 
                       }, 0);
                       setTotalProducts(total);
-
-                      sortProducts(sortBy);
+                     
+                      const sortedProducts = [...response.data];
+                      sortProducts(sortedProducts, sortBy);
+                      
                     })
                     .catch((error) => {
                       console.error('Error fetching total products:', error);
@@ -68,6 +55,19 @@ function Products() {
                
         
     }, [sortBy]);
+
+    const sortProducts = (productsToSort, sortByOption) => {
+        let sortedProducts = [...productsToSort];
+      
+        if (sortByOption === 'popularity') {
+          sortedProducts.sort((a, b) => b.popularity - a.popularity);
+        } else if (sortByOption === 'price') {
+          sortedProducts.sort((a, b) => a.price - b.price);
+        }
+      
+        console.log('Sorted Products:', sortedProducts);
+        setProducts(sortedProducts);
+      };
 
     // useEffect(() => {
     //     const fetchProductCounts = async () => {
