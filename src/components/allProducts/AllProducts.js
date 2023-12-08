@@ -1,30 +1,8 @@
 import classes from '../../pages/products/Products.module.css'
-import React, { useEffect, useState } from "react";
 import ProductCard from "../productCard/ProductCard";
 
 
 function AllProducts({products}) {
-
-    // TODO Padination, check for partial page change and decide which one to use Pagination or PaginationItem
-    // const [products, setProducts] = useState([]);
-
-    // useEffect(() => {
-    //     const apiUrl = "http://localhost:8080/api/v1/products/all";
-
-    //     fetch(apiUrl)
-    //         .then((response) => {
-    //             if (!response.ok) {
-    //                 throw new Error(`HTTP error! Status: ${response.status}`);
-    //             }
-    //             return response.json();
-    //         })
-    //         .then((data) => {
-    //             setProducts(data);
-    //         })
-    //         .catch((error) => {
-    //             console.error("Error fetching product data:", error);
-    //         });
-    // }, []);
 
     return(
         <div>
